@@ -84,4 +84,4 @@ def part1_2(grid):
     return count
 
 data = list(map(list, get_input(4).splitlines()))
-print(f"Part 1 Solution: {count_xmas_occurrences(data)}")
+print(f"Part 1 Solution: {part1(data)}")
