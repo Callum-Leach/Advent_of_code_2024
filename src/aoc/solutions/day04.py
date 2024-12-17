@@ -42,6 +42,48 @@ def part1(data):
 
     return ans
 
-data = list(map(list, get_input(4).splitlines()))
+from aoc.utilities.fetch import get_input
 
-print(f"Part 1 Solution: {part1(data)}")
+def part1_2(grid):
+    rows = len(grid)
+    cols = len(grid[0]) if rows > 0 else 0
+    word = "XMAS"
+    word_length = len(word)
+    
+    # All eight directions
+    directions = [
+        (-1, 0),  # up
+        (1, 0),   # down
+        (0, 1),   # right
+        (0, -1),  # left
+        (-1, -1), # up-left
+        (-1, 1),  # up-right
+        (1, -1),  # down-left
+        (1, 1)    # down-right
+    ]
+    
+    def in_bounds(r, c):
+        return 0 <= r < rows and 0 <= c < cols
+    
+    count = 0
+    
+    for r in range(rows):
+        for c in range(cols):
+            # If the starting letter matches 'X', only then proceed
+            if grid[r][c] == 'X':
+                for dx, dy in directions:
+                    # Check if we can find "XMAS" in this direction
+                    rr, cc = r, c
+                    matched = True
+                    for i in range(1, word_length):
+                        rr += dx
+                        cc += dy
+                        if not in_bounds(rr, cc) or grid[rr][cc] != word[i]:
+                            matched = False
+                            break
+                    if matched:
+                        count += 1
+    return count
+
+data = list(map(list, get_input(4).splitlines()))
+print(f"Part 1 Solution: {count_xmas_occurrences(data)}")
