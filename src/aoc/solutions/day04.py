@@ -1,6 +1,7 @@
 from aoc.utilities.fetch import get_input
 
 FIRST_PATTERN = "XMAS"
+SECOND_PATTERN = ["MAS", "SAM"]
 
 def part1(data):
 
@@ -40,6 +41,29 @@ def part1(data):
             ans += check(i, j, data)
 
 
+    return ans
+
+def part2(data):
+    n, m = len(data), len(data[0])
+    ans = 0
+
+    def check_second(i, j, data):
+        delta_positions = [(1, 1), (-1, 1)]
+        start = [(i, j), (i + 2, j)]
+
+        for (di, dj), (si, sj) in zip(delta_positions, start):
+            word = ""
+            for x in range(3):
+                word += data[si+di*x][sj+dj*x]
+
+            if word not in SECOND_PATTERN:
+                return 0
+        return 1
+
+    for i in range(n-2):
+        for j in range(m-2):
+            ans += check_second(i, j, data)
+    
     return ans
 
 def part1_2(grid):
