@@ -42,8 +42,6 @@ def part1(data):
 
     return ans
 
-from aoc.utilities.fetch import get_input
-
 def part1_2(grid):
     rows = len(grid)
     cols = len(grid[0]) if rows > 0 else 0
